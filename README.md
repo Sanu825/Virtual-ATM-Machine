@@ -1,4 +1,4 @@
-<h1>ATM System README</h1>
+<h1>ATM System README &#129297; &#129297;🏧</h1>
 
 <p>This is a simple ATM (Automated Teller Machine) system implemented in Python. It allows users to check their balance, withdraw money, deposit money, and create new user accounts. The system stores user data in a JSON file.</p>
 
@@ -60,7 +60,7 @@
 
 <p>If you have any questions or issues, please feel free to contact the author:</p>
 
-<p>Author: [Your Name]<br>
-Email: [Your Email]</p>
+<p>Author: Sanu Kumar Das<br>
+Email: dsanukumar90@gmail.com</p>
 
 <p>Enjoy using the ATM System!</p>
