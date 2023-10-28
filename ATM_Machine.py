@@ -35,7 +35,24 @@ class ATMSystem():
                 return user
         return None
     
+    # Function to deposit money
+    def deposit_money(self, user_id, amount):
+        for user in self.users:
+            if user['user_id'] == user_id:
+                user['balance'] += amount
+                self.save_user_data()   # Save the user data immediately
+                return True
+        return False
     
+    # Function to withdraw money
+    def withdraw_money(self, user_id, amount):
+        for user in self.users:
+            if user['user_id'] == user_id:
+                if user['balance'] >= amount:
+                    user['balance'] -= amount
+                    self.save_user_data()   # Save the user data immediately
+                    return True
+        return False
 
     
 # Sample ATM System
