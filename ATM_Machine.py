@@ -24,6 +24,9 @@ class ATMSystem():
         self.save_user_data()
         print("User added successfully")
 
+        # Update self.users with the latest data
+        self.users = self.load_user_data()
+
 
     # Function to authenticate the user and return the user ID if successful
     def authenticate_user(self, user_id, pin):
