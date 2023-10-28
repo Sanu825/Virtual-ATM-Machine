@@ -3,8 +3,8 @@ import json
 import random
 
 class ATMSystem():
-    def __init__(self, user_data_file):
-        self.user_data_file = user_data_file
+    def __init__(self):
+        self.user_data_file = "user_data.json"  # Fixed file location
         self.users = self.load_user_data()
 
     def save_user_data(self):
@@ -34,8 +34,10 @@ class ATMSystem():
 
     
 # Sample ATM System
-user_data_file = "user_data.json"
-atm = ATMSystem(user_data_file)
+# user_data_file = "user_data.json"
+# atm = ATMSystem(user_data_file)
+
+atm = ATMSystem()
 
 
 # Sample user data (in a real system, this would be stored securely)
