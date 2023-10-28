@@ -1,8 +1,15 @@
-
+import json
 import random
 
 class ATMSystem():
-    pass
+    def __init__(self, user_data_file):
+        self.user_data_file = user_data_file
+        self.users = self()
+
+    
+    def save_user_data(self):
+        with open(self.user_data_file, 'w') as file:
+            json.dump(self.users, file)
 # Sample user data (in a real system, this would be stored securely)
 # Existing User data
 atm = ATMSystem()
@@ -42,7 +49,10 @@ def authenticate_user(user_id, pin):
 
 # Function to check account balance
 def check_balance(user_id):
-    return user_data[user_id]["balance"]
+    for user in user_data:
+        if user['user_id'] == user_id:
+            return user['balance']
+    return None
 
 # Function to withdraw money
 def withdraw_money(user_id, amount):
@@ -55,7 +65,10 @@ def withdraw_money(user_id, amount):
 
 # Function to deposit money
 def deposit_money(user_id, amount):
-    user_data[user_id]["balance"] += amount
+    for user in user_data:
+        if user['user_id'] == user_id:
+            user['balance'] += amount
+            atm.save_user_data()
 
 
 # Main program
