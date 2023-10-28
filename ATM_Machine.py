@@ -1,5 +1,4 @@
 
-
 import json
 import random
 
@@ -18,6 +17,7 @@ class ATMSystem():
                 return json.load(file)
         except FileNotFoundError:
             return []
+        
     # Function to add new user into the user_data    
     def add_user(self, user_data):
         self.users.append(user_data)
@@ -117,7 +117,7 @@ while True:
                 print(f"Your balance is: ${check_balance(autheticated_user['user_id'])}")
             elif choice == "2":
                 amount = float(input("Enter the amount to withdraw: "))
-                if withdraw_money(autheticated_user, amount):
+                if withdraw_money(autheticated_user['user_id'], amount):
                     print(f"Withdrew ${amount}. Your new balance is: ${check_balance(autheticated_user['user_id'])}")
                 else:
                     print("Insufficient balance.")
