@@ -34,6 +34,25 @@ class ATMSystem():
             if user['user_id'] == user_id and user['pin'] == pin:
                 return user
         return None
+    
+    # Function to deposit money
+    def deposit_money(self, user_id, amount):
+        for user in self.users:
+            if user['user_id'] == user_id:
+                user['balance'] += amount
+                self.save_user_data()   # Save the user data immediately
+                return True
+        return False
+    
+    # Function to withdraw money
+    def withdraw_money(self, user_id, amount):
+        for user in user_data:
+            if user['user_id'] == user_id:
+                if user['balance'] >= amount:
+                    user['balance'] -= amount
+                    self.save_user_data()   # Save the user data immediately
+                    return True
+        return False
 
     
 # Sample ATM System
@@ -80,23 +99,6 @@ def check_balance(user_id):
             return user['balance']
     return None
 
-# Function to withdraw money
-def withdraw_money(user_id, amount):
-    for user in user_data:
-        if user['user_id'] == user_id:
-            if user['balance'] >= amount:
-                user['balance'] -= amount
-                atm.save_user_data()
-                return True
-    return False
-
-# Function to deposit money
-def deposit_money(user_id, amount):
-    for user in user_data:
-        if user['user_id'] == user_id:
-            user['balance'] += amount
-            atm.save_user_data()
-
 
 # Main program
 while True:
@@ -119,17 +121,17 @@ while True:
             choice = input("Enter your choice (1/2/3/4): ")
 
             if choice == "1":
-                print(f"Your balance is: ${check_balance(autheticated_user['user_id'])}")
+                print(f"Your balance is: ${autheticated_user['balance']:.2f}")
             elif choice == "2":
                 amount = float(input("Enter the amount to withdraw: "))
-                if withdraw_money(autheticated_user['user_id'], amount):
-                    print(f"Withdrew ${amount}. Your new balance is: ${check_balance(autheticated_user['user_id'])}")
+                if atm.withdraw_money(autheticated_user['user_id'], amount):
+                    print(f"Withdrew ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
                 else:
                     print("Insufficient balance.")
             elif choice == "3":
                 amount = float(input("Enter the amount to deposit: "))
-                deposit_money(autheticated_user['user_id'], amount)
-                print(f"Deposited ${amount}. Your new balance is: ${check_balance(autheticated_user['user_id'])}")
+                if atm.deposit_money(autheticated_user['user_id'], amount):
+                    print(f"Deposited ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
             elif choice == "4":
                 # print("Thank you for using our ATM. Goodbye!")
                 
