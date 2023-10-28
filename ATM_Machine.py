@@ -59,7 +59,7 @@ if user_id in user_ids:
 else:
     new_user_data = {'user_id': user_id, 'pin': pin, 'balance': balance}
     atm.add_user(new_user_data)
-    # user_data.append(new_user_data)
+    # user_data.append(new_user_data)   # for that traction repedate
 
 
 # Display the updated list of users
