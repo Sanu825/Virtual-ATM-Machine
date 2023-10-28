@@ -33,7 +33,7 @@ class ATMSystem():
         for user in self.users:
             if user['user_id'] == user_id and user['pin'] == pin:
                 return user
-        return None
+        return print("Wrong Credential")
     
     # Function to deposit money
     def deposit_money(self, user_id, amount):
