@@ -1,15 +1,32 @@
 
 import random
 
-
-
+class ATMSystem():
+    pass
 # Sample user data (in a real system, this would be stored securely)
 # Existing User data
+atm = ATMSystem()
 user_data = [
     {'user_id': "Sanu", "pin": "1234", "balance": 1000},
     {'user_id': "Akash", "pin": "5678", "balance": 1500}
 
 ]
+
+# Take user input or new user Credential
+user_id = input("Enter the User ID or the new user: ")
+pin = input("Enter the PIN for the new user: ")
+balance = float(input("Enter the initial balance for the new user: "))
+
+# Check if the user already exists
+user_ids = [user['user_id'] for user in user_data]
+
+if user_id in user_ids:
+    print(f"User with ID {user_id} already exists.")
+else:
+    new_user_data = {'user_id': user_id, 'pin': pin, 'balance': balance}
+    atm.add_user(new_user_data)
+    user_data.append(new_user_data)
+
 
 # Function to generate a unique transaction ID
 def generate_transaction_id():
@@ -71,7 +88,7 @@ while True:
                     print("Insufficient balance.")
             elif choice == "3":
                 amount = float(input("Enter the amount to deposit: "))
-                if deposit_money(user_id, amount)
+                deposit_money(user_id, amount)
                 print(f"Deposited ${amount}. Your new balance is: ${check_balance(user_id)}")
             elif choice == "4":
                 print("Thank you for using our ATM. Goodbye!")
