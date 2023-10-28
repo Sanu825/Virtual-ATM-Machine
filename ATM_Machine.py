@@ -46,7 +46,7 @@ class ATMSystem():
     
     # Function to withdraw money
     def withdraw_money(self, user_id, amount):
-        for user in user_data:
+        for user in self.users:
             if user['user_id'] == user_id:
                 if user['balance'] >= amount:
                     user['balance'] -= amount
