@@ -126,7 +126,8 @@ while True:
                 deposit_money(autheticated_user['user_id'], amount)
                 print(f"Deposited ${amount}. Your new balance is: ${check_balance(autheticated_user['user_id'])}")
             elif choice == "4":
-                print("Thank you for using our ATM. Goodbye!")
+                # print("Thank you for using our ATM. Goodbye!")
+                pass
                 break
             else:
                 print("Invalid choice. Please try again.")
