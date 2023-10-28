@@ -6,12 +6,25 @@ class ATMSystem():
         self.user_data_file = user_data_file
         self.users = self()
 
-    
     def save_user_data(self):
         with open(self.user_data_file, 'w') as file:
             json.dump(self.users, file)
+
+    def load_user_data(self):
+        try:
+            with open(self.user_data_file, 'r') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            return []
+        
+    def add_user(self, user_data):
+        self.users.append(user_data)
+        self.save_user_data()
+        print("User added successfully")
+
 # Sample user data (in a real system, this would be stored securely)
 # Existing User data
+
 atm = ATMSystem()
 user_data = [
     {'user_id': "Sanu", "pin": "1234", "balance": 1000},
