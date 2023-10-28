@@ -71,7 +71,7 @@ while True:
                     print("Insufficient balance.")
             elif choice == "3":
                 amount = float(input("Enter the amount to deposit: "))
-                if deposit_money(user_id, amount)
+                deposit_money(user_id, amount)
                 print(f"Deposited ${amount}. Your new balance is: ${check_balance(user_id)}")
             elif choice == "4":
                 print("Thank you for using our ATM. Goodbye!")
