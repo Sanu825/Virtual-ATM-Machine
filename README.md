@@ -1,6 +1,6 @@
 <h1>ATM System README &#129297; &#129297;🏧</h1>
 
-<p>This is a simple ATM (Automated Teller Machine) system implemented in Python. It allows users to check their balance, withdraw money, deposit money, and create new user accounts. The system stores user data in a JSON file.</p>
+<p>This is a simple ATM (Automated Teller Machine) system implemented in Python. It allows users to check their balance, withdraw money, deposit money, get mini statement, change PIN and create new user accounts. The system stores user data in a JSON file.</p>
 
 <h2>Features</h2>
 
