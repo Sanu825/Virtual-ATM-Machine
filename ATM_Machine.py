@@ -7,10 +7,12 @@ class ATMSystem():
         self.user_data_file = "user_data.json"  # Fixed file location
         self.users = self.load_user_data()
 
+    # Save user data and Also used for write purpose
     def save_user_data(self):
         with open(self.user_data_file, 'w') as file:
             json.dump(self.users, file)
 
+    # Save user data and Also read the data
     def load_user_data(self):
         try:
             with open(self.user_data_file, 'r') as file:
@@ -41,6 +43,7 @@ class ATMSystem():
             if user['user_id'] == user_id:
                 user['balance'] += amount
                 self.save_user_data()   # Save the user data immediately
+                self.add_transaction(user_id, f"Deposied ${amount:.2f}")    # To store transaction histry
                 return True
         return False
     
@@ -51,10 +54,30 @@ class ATMSystem():
                 if user['balance'] >= amount:
                     user['balance'] -= amount
                     self.save_user_data()   # Save the user data immediately
+                    self.add_transaction(user_id, f"Withdrew ${amount:.2f}")
                     return True
         return False
-
     
+    # Function to save user transactions 
+    def add_transaction(self, user_id, transaction_text):
+        for user in self.users:
+            if user['user_id'] == user_id:
+                if 'transactions' not in user:
+                    user['transactions'] = []
+                user['transactions'].append(transaction_text)
+                self.save_user_data()
+
+    # Function to get user mini statement
+    def get_mini_statement(self, user_id):
+        for user in self.users:
+            if user['user_id'] == user_id:
+                if 'transactions' in user:
+                    transactions = user['transactions'][-5:]    # Get the last 5 transaction
+                    return transactions
+                else:
+                    return["No transaction yet.."]
+        return []
+
 # Sample ATM System
 # user_data_file = "user_data.json"
 # atm = ATMSystem(user_data_file)
@@ -116,7 +139,8 @@ while True:
             print("1. Check Balance")
             print("2. Withdraw Money")
             print("3. Deposit Money")
-            print("4. Exit")
+            print("4. Mini Statement")
+            print("5. Exit")
 
             choice = input("Enter your choice (1/2/3/4): ")
 
@@ -132,7 +156,14 @@ while True:
                 amount = float(input("Enter the amount to deposit: "))
                 if atm.deposit_money(autheticated_user['user_id'], amount):
                     print(f"Deposited ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
+            
             elif choice == "4":
+                mini_statement = atm.get_mini_statement(autheticated_user['user_id'])
+                print("Mini Statement:")
+                for transaction in mini_statement:
+                    print(transaction)
+
+            elif choice == "5":
                 # print("Thank you for using our ATM. Goodbye!")
                 
                 break
