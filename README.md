@@ -11,6 +11,7 @@
     <li><strong>Deposit Money</strong>: Users can deposit money into their account.</li>
     <li><strong>Create New User</strong>: Users can create new accounts with unique User IDs, PINs, and initial balances.</li>
     <li><strong>Mini Statement</strong>: User can get their last 5 transaction very easily</li>
+    <li><strong>Change PIN</strong>: Users also can change their PIN, User can log in with this pin.</li>
     <li><strong>User Data Storage</strong>: User data is stored in a JSON file, allowing for data persistence between program runs.</li>
 </ol>
 
