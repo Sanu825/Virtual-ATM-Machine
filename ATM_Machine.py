@@ -142,7 +142,7 @@ while True:
             print("4. Mini Statement")
             print("5. Exit")
 
-            choice = input("Enter your choice (1/2/3/4): ")
+            choice = input("Enter your choice (1/2/3/4/5): ")
 
             if choice == "1":
                 print(f"Your balance is: ${autheticated_user['balance']:.2f}")
