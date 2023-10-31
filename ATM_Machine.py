@@ -80,13 +80,13 @@ class ATMSystem():
     
 
     def change_pin(self, user_id, new_pin):
-        if len(new_pin) == 4 and new_pin.indigit():
+        if len(new_pin) == 4 and new_pin.isdigit():
             for user in self.users:
                 if user['user_id'] == user_id:
                     user['pin'] == new_pin
                     self.save_user_data()
-                    return print("Pin change successfully")
-        return print("Invalid pin....")
+                    return True
+        return False
 
 # Sample ATM System
 # user_data_file = "user_data.json"
@@ -175,7 +175,7 @@ while True:
                     print(transaction)
 
             elif choice == "5":
-                new_pin = int(input("Enter a new 4-digit PIN: "))
+                new_pin = input("Enter a new 4-digit PIN: ")
                 if atm.change_pin(autheticated_user['user_id'], new_pin):
                     print("PIN change successfully.")
                 else:
