@@ -138,12 +138,14 @@ while True:
     user_id = input("Enter your user ID: ")
     pin =(input("Enter your PIN: "))
 
-
     # Authenticate the user
-    print("\nWelcome to our ATM System")
     autheticated_user = atm.authenticate_user(user_id, pin)
 
+
     if autheticated_user:
+
+        print("\nWelcome to our ATM System")
+
         while True:
             print("\nMain Menu:")
             print("1. Check Balance")
