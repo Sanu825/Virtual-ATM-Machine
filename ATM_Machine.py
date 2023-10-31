@@ -83,7 +83,7 @@ class ATMSystem():
         if len(new_pin) == 4 and new_pin.isdigit():
             for user in self.users:
                 if user['user_id'] == user_id:
-                    user['pin'] == new_pin
+                    user['pin'] = new_pin   # Use '=' for assignment, not '=='
                     self.save_user_data()
                     return True
         return False
