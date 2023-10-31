@@ -43,7 +43,7 @@ class ATMSystem():
             if user['user_id'] == user_id:
                 user['balance'] += amount
                 self.save_user_data()   # Save the user data immediately
-                self.add_transaction(user_id, f"Deposied ${amount:.2f}")    # To store transaction histry
+                self.add_transaction(user_id, f"Deposit ${amount:.2f}")    # To store transaction histry
                 return True
         return False
     
@@ -54,7 +54,7 @@ class ATMSystem():
                 if user['balance'] >= amount:
                     user['balance'] -= amount
                     self.save_user_data()   # Save the user data immediately
-                    self.add_transaction(user_id, f"Withdrew ${amount:.2f}")
+                    self.add_transaction(user_id, f"Withdrawl ${amount:.2f}")
                     return True
         return False
     
