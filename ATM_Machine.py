@@ -163,7 +163,7 @@ while True:
 
     if autheticated_user:
 
-        print("\nWelcome to our ATM System")
+        print(f'\nWelcome "{user_id}" to our ATM System')
 
     # If user don't exists then registered new user
 
@@ -181,7 +181,7 @@ while True:
             if choice == "1":
                 print(f"Your balance is: ${autheticated_user['balance']:.2f}")
             elif choice == "2":
-                amount = float(input("Enter the amount to withdraw: "))
+                amount = int(input("Enter the amount to withdraw: "))
                 if atm.withdraw_money(autheticated_user['user_id'], amount):
                     print(f"Withdrew ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
                 else:
