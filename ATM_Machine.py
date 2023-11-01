@@ -24,7 +24,7 @@ class ATMSystem():
     def add_user(self, user_data):
         self.users.append(user_data)
         self.save_user_data()
-        print("User added successfully")
+        # print("User added successfully")
 
         # Update self.users with the latest data
         self.users = self.load_user_data()
@@ -101,16 +101,35 @@ user_data = atm.users
 # Take user input or new user Credential
 user_id = input("Enter the User ID or the new user: ")
 pin = input("Enter the PIN for the new user: ")
-balance = float(input("Enter the initial balance for the new user: "))
 
 # Check if the user already exists
 user_ids = [user['user_id'] for user in user_data]
+# user_pin = [user['pin'] for user in user_data]
 
 if user_id in user_ids:
     print(f"User with ID {user_id} already exists.")
 else:
-    new_user_data = {'user_id': user_id, 'pin': pin, 'balance': balance}
-    atm.add_user(new_user_data)
+    print("User not Found.")
+    register_option = input("Do you want to register as a new user? (yes/no): ")
+
+    if register_option.lower() == "yes":
+            while True:
+                pin = input("Enter your 4-digit PIN: ")
+
+                if pin.isdigit() and len(pin) == 4:
+                    break
+                else:
+                    print("Invalid PIN. Please enter a 4-digit number.")
+                    
+            balance = float(input("Enter the initial balance for the new user: "))
+
+            new_user_data = {'user_id': user_id, 'pin': pin, 'balance': balance}
+            atm.add_user(new_user_data)
+            print("User registered successfully.")
+    else:
+        print("Goodbye!")
+        exit() #Exit the main loop
+    
     # user_data.append(new_user_data)   # for that traction repedate
 
 
@@ -145,6 +164,8 @@ while True:
     if autheticated_user:
 
         print("\nWelcome to our ATM System")
+
+    # If user don't exists then registered new user
 
         while True:
             print("\nMain Menu:")
