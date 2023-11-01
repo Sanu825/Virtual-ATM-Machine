@@ -127,7 +127,7 @@ else:
             atm.add_user(new_user_data)
             print("User registered successfully.")
     else:
-        print("Goodbye!")
+        print("Goodbye!.... Visit Again")
         exit() #Exit the main loop
     
     # user_data.append(new_user_data)   # for that traction repedate
