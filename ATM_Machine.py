@@ -35,7 +35,14 @@ class ATMSystem():
         for user in self.users:
             if user['user_id'] == user_id and user['pin'] == pin:
                 return user
-        return print("Wrong Credential")
+        # return print("Wrong Credential")
+    
+    # Function to check if a user exists
+    def user_exists(self, user_id):
+        for user in self.users:
+            if user['user_id'] == user_id:
+                return True
+        return False
     
     # Function to deposit money
     def deposit_money(self, user_id, amount):
@@ -99,15 +106,19 @@ atm = ATMSystem()
 user_data = atm.users
 
 # Take user input or new user Credential
-user_id = input("Enter the User ID or the new user: ")
-pin = input("Enter the PIN for the new user: ")
+user_id = input("Enter the User ID: ")
 
 # Check if the user already exists
-user_ids = [user['user_id'] for user in user_data]
-# user_pin = [user['pin'] for user in user_data]
-
-if user_id in user_ids:
-    print(f"User with ID {user_id} already exists.")
+if atm.user_exists(user_id):
+    # It ensures that if the user typing right credential then login directly
+    pin = input("Enter the PIN: ")
+    autheticated_user = atm.authenticate_user(user_id, pin)
+    if autheticated_user:
+        print(f'\nWelcome "{user_id}" to our ATM System')
+        # Continue with the main menu as in your existing code
+    else:
+        print("User ID exists but you have entered the wrong password")
+        exit()
 else:
     print("User not Found.")
     register_option = input("Do you want to register as a new user? (yes/no): ")
@@ -126,6 +137,7 @@ else:
             new_user_data = {'user_id': user_id, 'pin': pin, 'balance': balance}
             atm.add_user(new_user_data)
             print("User registered successfully.")
+            print(f'\n\nWelcome "{user_id}" to our ATM System')
     else:
         print("Goodbye!.... Visit Again")
         exit() #Exit the main loop
