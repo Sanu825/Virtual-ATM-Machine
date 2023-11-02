@@ -114,7 +114,10 @@ if atm.user_exists(user_id):
     pin = input("Enter the PIN: ")
     autheticated_user = atm.authenticate_user(user_id, pin)
     if autheticated_user:
-        print(f'\nWelcome "{user_id}" to our ATM System')
+
+        # print(f'\nWelcome "{user_id}" to our ATM System')
+        pass
+        
         # Continue with the main menu as in your existing code
     else:
         print("User ID exists but you have entered the wrong password")
@@ -125,7 +128,7 @@ else:
 
     if register_option.lower() == "yes":
             while True:
-                pin = input("Enter your 4-digit PIN: ")
+                pin = input("Create your 4-digit PIN: ")
 
                 if pin.isdigit() and len(pin) == 4:
                     break
@@ -138,6 +141,10 @@ else:
             atm.add_user(new_user_data)
             print("User registered successfully.")
             print(f'\n\nWelcome "{user_id}" to our ATM System')
+
+            user_id = input("Enter Your User Id: ")
+            pin = input("Enter your PIN: ")
+
     else:
         print("Goodbye!.... Visit Again")
         exit() #Exit the main loop
@@ -166,8 +173,8 @@ def check_balance(user_id):
 
 # Main program
 while True:
-    user_id = input("Enter your user ID: ")
-    pin =(input("Enter your PIN: "))
+    # user_id = input("Enter your user ID: ")
+    # pin =(input("Enter your PIN: "))
 
     # Authenticate the user
     autheticated_user = atm.authenticate_user(user_id, pin)
@@ -192,12 +199,28 @@ while True:
 
             if choice == "1":
                 print(f"Your balance is: ${autheticated_user['balance']:.2f}")
+
             elif choice == "2":
-                amount = int(input("Enter the amount to withdraw: "))
-                if atm.withdraw_money(autheticated_user['user_id'], amount):
-                    print(f"Withdrew ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
-                else:
-                    print("Insufficient balance.")
+                while True:
+                    amount_input = input("Enter the amount to withdraw: ")
+                    try:
+                        amount = float(amount_input)
+        
+                        if not amount.is_integer() or amount <= 0:
+                            print("Invalid amount. Please enter a positive round number (E.g., 500, 550, 1000 etc)")
+                               # Ask for input again
+                        else:
+                            amount = int(amount)  # Convert to an integer if it's a whole number
+                            
+                            if atm.withdraw_money(autheticated_user['user_id'], amount):
+                                print(f"Withdrew ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
+                            else:
+                                print("Insufficient balance.")
+                                
+                        break   #Exit the loop after processing the withdrawl
+                    except ValueError:
+                        print("Invalid input. Please enter a valid numeric amount.")
+            
             elif choice == "3":
                 amount = float(input("Enter the amount to deposit: "))
                 if atm.deposit_money(autheticated_user['user_id'], amount):
