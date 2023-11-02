@@ -1,6 +1,7 @@
 
 import json
 import random
+import sys  # Import the sys module
 
 class ATMSystem():
     def __init__(self):
@@ -87,13 +88,24 @@ class ATMSystem():
     
 
     def change_pin(self, user_id, new_pin):
-        if len(new_pin) == 4 and new_pin.isdigit():
-            for user in self.users:
-                if user['user_id'] == user_id:
-                    user['pin'] = new_pin   # Use '=' for assignment, not '=='
-                    self.save_user_data()
-                    return True
-        return False
+        while True:
+            if len(new_pin) == 4 and new_pin.isdigit():
+                for user in self.users:
+                    if user['user_id'] == user_id:
+                        user['pin'] = new_pin   # Use '=' for assignment, not '=='
+                        self.save_user_data()
+                        print("Your PIN changed successfully. Goodbye!")
+                        sys.exit()  # End the program
+                        return True
+            
+            else:
+                print("Invalid PIN. Please enter a 4-digit number.")
+                retry = input("Do you want to retry changing your PIN?  (yes/no): ")
+                if retry.lower() != "yes":
+                        return False
+                new_pin = input("Enter a new 4-digit PIN: ")
+
+
 
 # Sample ATM System
 # user_data_file = "user_data.json"
@@ -171,8 +183,14 @@ def check_balance(user_id):
     return None
 
 
+# Initialize a flag to track weather the PIN has been changed
+# pin_changed  = False
+
 # Main program
 while True:
+    # if pin_changed:
+    #     print(f'Goodbye! "{user_id}"Thank you for using our ATM')
+    #     break
     # user_id = input("Enter your user ID: ")
     # pin =(input("Enter your PIN: "))
 
@@ -215,9 +233,9 @@ while True:
                             if atm.withdraw_money(autheticated_user['user_id'], amount):
                                 print(f"Withdrew ${amount:.2f}. Your new balance is: ${autheticated_user['balance']:.2f}")
                             else:
-                                print("Insufficient balance.")
-                                
+                                print("Insufficient balance.")     
                         break   #Exit the loop after processing the withdrawl
+
                     except ValueError:
                         print("Invalid input. Please enter a valid numeric amount.")
             
@@ -236,6 +254,7 @@ while True:
                 new_pin = input("Enter a new 4-digit PIN: ")
                 if atm.change_pin(autheticated_user['user_id'], new_pin):
                     print("PIN change successfully.")
+                    pin_changed = True
                 else:
                     print("Invalid PIN. Please enter a 4-digit number.")
 
