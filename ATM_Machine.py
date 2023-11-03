@@ -7,6 +7,7 @@ class ATMSystem():
     def __init__(self):
         self.user_data_file = "user_data.json"  # Fixed file location
         self.users = self.load_user_data()
+        self.pin_changed = False    #Initialize the pin_changed flag
 
     # Save user data and Also used for write purpose
     def save_user_data(self):
@@ -28,7 +29,7 @@ class ATMSystem():
         # print("User added successfully")
 
         # Update self.users with the latest data
-        self.users = self.load_user_data()
+        # self.users = self.load_user_data()
 
 
     # Function to authenticate the user and return the user ID if successful
@@ -93,7 +94,9 @@ class ATMSystem():
                 for user in self.users:
                     if user['user_id'] == user_id:
                         user['pin'] = new_pin   # Use '=' for assignment, not '=='
-                        self.save_user_data()
+                        # self.save_user_data()
+                        self.pin_changed = True
+                        self.save_user_data()   # Save the user data immediatly
                         print("Your PIN changed successfully. Goodbye!")
                         sys.exit()  # End the program
                         return True
@@ -253,10 +256,12 @@ while True:
             elif choice == "5":
                 new_pin = input("Enter a new 4-digit PIN: ")
                 if atm.change_pin(autheticated_user['user_id'], new_pin):
+                    autheticated_user['pin'] = new_pin      # update the PIN in the current user data
                     print("PIN change successfully.")
-                    pin_changed = True
-                else:
-                    print("Invalid PIN. Please enter a 4-digit number.")
+                    pin = new_pin   # Update the PIN for the current session
+
+                # Save the modified user data to the json file
+                atm.save_user_data()
 
             elif choice == "6":
                 # print("Thank you for using our ATM. Goodbye!")
