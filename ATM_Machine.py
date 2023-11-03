@@ -3,12 +3,11 @@ import json
 import random
 import sys  # Import the sys module
 
-
 class ATMSystem():
     def __init__(self):
         self.user_data_file = "user_data.json"  # Fixed file location
         self.users = self.load_user_data()
-        self.pin_changed = False    #Initialize the pin_changed flag
+        # self.pin_changed = False    #Initialize the pin_changed flag
 
     # Save user data and Also used for write purpose
     def save_user_data(self):
