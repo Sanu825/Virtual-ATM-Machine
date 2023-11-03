@@ -203,7 +203,7 @@ while True:
 
     if autheticated_user:
 
-        print(f'\nWelcome "{user_id}" to our ATM System')
+        print(f'\nWelcome "{user_id}" ')
 
     # If user don't exists then registered new user
 
