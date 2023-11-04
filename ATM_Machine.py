@@ -1,7 +1,8 @@
 
 import json
 import random
-import sys  # Import the sys module
+import sys      # Import the sys module
+import datetime     # Import the datetime module
 
 class ATMSystem():
     def __init__(self):
@@ -73,7 +74,13 @@ class ATMSystem():
             if user['user_id'] == user_id:
                 if 'transactions' not in user:
                     user['transactions'] = []
-                user['transactions'].append(transaction_text)
+
+                # Add this feature for note user transaction activity
+
+                timestamp = datetime.datetime.now().strftime("%d-%m-%Y %I:%M %p")   # Format - "%Y-%m-%d %H:%M:%S" -> 2023-11-04 17:31:22
+                                                                                    # Format - "%d-%m-%Y %I:%M %p" -> 
+                transaction_entry = f"{timestamp} - {transaction_text}"
+                user['transactions'].append(transaction_entry)
                 self.save_user_data()
 
     # Function to get user mini statement
@@ -197,10 +204,10 @@ while True:
     # user_id = input("Enter your user ID: ")
     # pin =(input("Enter your PIN: "))
 
+
+
     # Authenticate the user
     autheticated_user = atm.authenticate_user(user_id, pin)
-
-
     if autheticated_user:
 
         print(f'\nWelcome "{user_id}" ')
