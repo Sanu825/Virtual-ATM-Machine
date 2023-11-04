@@ -90,7 +90,7 @@ class ATMSystem():
                 if 'transactions' in user:
                     transactions = user['transactions'][-5:]    # Get the last 5 transaction
                     current_balance = user['balance']
-                    transactions_with_balance = ["\n"f"Your Current Balance: ${current_balance:.2f}"] + transactions     #  Also print the current balance
+                    transactions_with_balance = transactions + ["\n"f"Your Current Balance: ${current_balance:.2f}"]     #  Also print the current balance
                     return transactions_with_balance
                     return transactions
                 else:
