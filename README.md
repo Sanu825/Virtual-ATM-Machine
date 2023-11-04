@@ -24,15 +24,17 @@
         <ul>
             <li><code>json</code>: For reading and writing user data to a JSON file.</li>
             <li><code>random</code>: For generating unique transaction IDs.</li>
+            <li><code>system</code>: For access some variable and functions used or maintained by the interpreter<li>
         </ul>
     </li>
+
 </ol>
 
 <h2>Usage</h2>
 
 <ol>
-    <li>Run the <code>atm_system.py</code> script:
-        <pre><code>python atm_system.py</code></pre>
+    <li>Run the <code>ATM_Machine.py</code> script:
+        <pre><code>python ATM_Machine.py</code></pre>
     </li>
     <li>Follow the on-screen instructions to use the ATM system.</li>
     <li>You can perform actions such as checking your balance, withdrawing money, depositing money, or creating new user accounts.</li>
@@ -62,7 +64,7 @@
 
 <p>If you have any questions or issues, please feel free to contact the author:</p>
 
-<p>Author: Sanu Kumar Das<br>
-Email: dsanukumar90@gmail.com</p>
+<p>Author: <a href  ="https://github.com/Sanu825">Sanu Kumar Das</a><br>
+Email: <a href ="dsanukumar90@gmail.com"></a></p>
 
 <p>Enjoy using the ATM System!</p>
