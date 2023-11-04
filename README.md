@@ -24,7 +24,7 @@
         <ul>
             <li><code>json</code>: For reading and writing user data to a JSON file.</li>
             <li><code>random</code>: For generating unique transaction IDs.</li>
-            <li><code>system</code>: For access some variable and functions used or maintained by the interpreter<li>
+            <li><code>system</code>: For access some variable and functions used or maintained by the interpreter</li>
         </ul>
     </li>
 
