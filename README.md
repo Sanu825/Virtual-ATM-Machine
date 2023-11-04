@@ -65,6 +65,6 @@
 <p>If you have any questions or issues, please feel free to contact the author:</p>
 
 <p>Author: <a href  ="https://github.com/Sanu825">Sanu Kumar Das</a><br>
-Email: <a href ="dsanukumar90@gmail.com">dsanukumar9@gmail.com</a></p>
+Email: <a href ="dsanukumar90@gmail.com">dsanukumar90@gmail.com</a></p>
 
 <p>Enjoy using the ATM System!</p>
