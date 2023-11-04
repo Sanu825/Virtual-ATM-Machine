@@ -77,9 +77,9 @@ class ATMSystem():
 
                 # Add this feature for note user transaction activity
 
-                timestamp = datetime.datetime.now().strftime("%d-%m-%Y %I:%M %p")   # Format - "%Y-%m-%d %H:%M:%S" -> 2023-11-04 17:31:22
+                timestamp = datetime.datetime.now().strftime("%d-%m-%Y [%I:%M %p]")   # Format - "%Y-%m-%d %H:%M:%S" -> 2023-11-04 17:31:22
                                                                                     # Format - "%d-%m-%Y %I:%M %p" -> 
-                transaction_entry = f"{timestamp} - {transaction_text}"
+                transaction_entry = f"{timestamp} : {transaction_text}"
                 user['transactions'].append(transaction_entry)
                 self.save_user_data()
 
