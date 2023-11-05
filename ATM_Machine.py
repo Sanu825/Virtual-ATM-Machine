@@ -5,7 +5,6 @@ import sys          # Import the sys module
 import datetime     # Import the datetime module
 import bcrypt       # Import the bcrypt library
 
-
 # Load existing user data from the JSON file
 with open("user_data.json", "r") as file:
     user_data = json.load(file)
@@ -14,7 +13,7 @@ with open("user_data.json", "r") as file:
 def hash_pin(pin):
     return bcrypt.hashpw(pin.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")     # is used to securely hash a PIN before storing it in the user data.
 
-# Hash all existing PINs which was "2004" like that
+# Hash all existing PINs which were "2004" like that
 for user in user_data:
     if "pin" in user and not user["pin"].startswith("$2b$"):    # The $2b$ part indicates the use of the bcrypt algorithm, 
                                                                 # which is the standard algorithm for password hashing
@@ -47,6 +46,10 @@ class ATMSystem():
         
     # Function to add new user into the user_data    
     def add_user(self, user_data):
+        # Hash the user's PIN before storing it
+        hashed_pin = bcrypt.hashpw(user_data['pin'].encode('utf-8'), bcrypt.gensalt())
+        user_data['pin'] = hashed_pin.decode('utf-8')
+
         self.users.append(user_data)
         self.save_user_data()
         # print("User added successfully")
