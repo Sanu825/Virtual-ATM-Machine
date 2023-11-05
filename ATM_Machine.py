@@ -3,7 +3,27 @@ import json
 import random   # Import the random module
 import sys      # Import the sys module
 import datetime     # Import the datetime module
+import bcrypt       # Import the bcrypt library
 
+# Load existing user data from the JSON file
+with open("user_data.json", "r") as file:
+    user_data = json.load(file)
+
+# Function to hash the PIN using bcrypt
+def hash_pin(pin):
+    return bcrypt.hashpw(pin.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+# Hash all existing PINs
+for user in user_data:
+    if "pin" in user:
+        user["pin"] = hash_pin(user["pin"])
+
+# Save the updated data back to the JSON file
+with open("user_data.json", "w") as file:
+    json.dump(user_data, file)
+    
+
+# Define a class "ATMSystem"
 class ATMSystem():
     def __init__(self):
         self.user_data_file = "user_data.json"  # Fixed file location
@@ -25,6 +45,10 @@ class ATMSystem():
         
     # Function to add new user into the user_data    
     def add_user(self, user_data):
+        # Hash the user's PIN before storing it
+        hashed_pin = bcrypt.hashpw(user_data['pin'].encode('utf-8'), bcrypt.gensalt())
+        user_data['pin'] = hashed_pin.decode('utf-8')
+
         self.users.append(user_data)
         self.save_user_data()
         # print("User added successfully")
@@ -36,8 +60,12 @@ class ATMSystem():
     # Function to authenticate the user and return the user ID if successful
     def authenticate_user(self, user_id, pin):
         for user in self.users:
-            if user['user_id'] == user_id and user['pin'] == pin:
-                return user
+            if user['user_id'] == user_id:
+                # Compare the entered PIN with the stored hash
+                if bcrypt.checkpw(pin.encode('utf-8'), user['pin'].encode('utf-8')):
+                    return user
+                
+        return None
         # return print("Wrong Credential")
     
     # Function to check if a user exists
