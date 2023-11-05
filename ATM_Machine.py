@@ -1,14 +1,36 @@
 
-import json
-import random   # Import the random module
-import sys      # Import the sys module
+import json         # Import json for store the data
+import random       # Import the random module
+import sys          # Import the sys module
 import datetime     # Import the datetime module
+import bcrypt       # Import the bcrypt library
 
+
+# Load existing user data from the JSON file
+with open("user_data.json", "r") as file:
+    user_data = json.load(file)
+
+# Function to hash the PIN using bcrypt
+def hash_pin(pin):
+    return bcrypt.hashpw(pin.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")     # is used to securely hash a PIN before storing it in the user data.
+
+# Hash all existing PINs which was "2004" like that
+for user in user_data:
+    if "pin" in user and not user["pin"].startswith("$2b$"):    # The $2b$ part indicates the use of the bcrypt algorithm, 
+                                                                # which is the standard algorithm for password hashing
+        user["pin"] = hash_pin(user["pin"])
+
+# Save the updated data back to the JSON file
+with open("user_data.json", "w") as file:
+    json.dump(user_data, file)
+
+
+
+# Create class where define all the rules
 class ATMSystem():
     def __init__(self):
         self.user_data_file = "user_data.json"  # Fixed file location
         self.users = self.load_user_data()
-        # self.pin_changed = False    #Initialize the pin_changed flag
 
     # Save user data and Also used for write purpose
     def save_user_data(self):
@@ -32,13 +54,14 @@ class ATMSystem():
         # Update self.users with the latest data
         # self.users = self.load_user_data()
 
-
     # Function to authenticate the user and return the user ID if successful
     def authenticate_user(self, user_id, pin):
         for user in self.users:
-            if user['user_id'] == user_id and user['pin'] == pin:
-                return user
-        # return print("Wrong Credential")
+            if user['user_id'] == user_id:
+                # Compare the entered PIN with the stored hash
+                if bcrypt.checkpw(pin.encode('utf-8'), user['pin'].encode('utf-8')):
+                    return user
+        return print("Wrong Credential")    # Print an error message if the password is incorrect
     
     # Function to check if a user exists
     def user_exists(self, user_id):
@@ -103,7 +126,7 @@ class ATMSystem():
             if len(new_pin) == 4 and new_pin.isdigit():
                 for user in self.users:
                     if user['user_id'] == user_id:
-                        user['pin'] = new_pin   # Use '=' for assignment, not '=='
+                        user['pin'] = hash_pin(new_pin)   # Use '=' for assignment, not '=='
                         # self.save_user_data()
                         self.pin_changed = True
                         self.save_user_data()   # Save the user data immediatly
@@ -120,19 +143,16 @@ class ATMSystem():
 
 
 
-# Sample ATM System
-# user_data_file = "user_data.json"
-# atm = ATMSystem(user_data_file)
 
+# Create an instance of the ATMSystem class
 atm = ATMSystem()
-
 
 # Sample user data (in a real system, this would be stored securely)
 user_data = atm.users
 
+
 # Take user input or new user Credential
 user_id = input("Enter the User ID: ")
-
 # Check if the user already exists
 if atm.user_exists(user_id):
     # It ensures that if the user typing right credential then login directly
@@ -266,7 +286,7 @@ while True:
             elif choice == "5":
                 new_pin = input("Enter a new 4-digit PIN: ")
                 if atm.change_pin(autheticated_user['user_id'], new_pin):
-                    autheticated_user['pin'] = new_pin      # update the PIN in the current user data
+                    # autheticated_user['pin'] = bcrypt.hashpw(new_pin.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')      # update the PIN in the current user data
                     print("PIN change successfully.")
                     pin = new_pin   # Update the PIN for the current session
 
