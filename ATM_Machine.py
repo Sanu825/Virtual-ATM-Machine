@@ -268,6 +268,7 @@ while True:
                             
                             if atm.withdraw_money(autheticated_user['user_id'], amount):
                                 print(f"Withdrew ${amount:.2f}. Your Current Balance is: ${autheticated_user['balance']:.2f}")
+                                print(f"Withdrew ${amount:.2f}. Your current balance is: ${autheticated_user['balance']:.2f}")
                             else:
                                 print("Insufficient balance.")     
                         break   #Exit the loop after processing the withdrawl
